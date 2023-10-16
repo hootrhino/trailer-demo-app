@@ -61,9 +61,11 @@ func main() {
 	if err != nil {
 		log.Fatalf("failed to listen: %v", err)
 	}
-	log.Println("net.Listen at localhost:7798")
+	log.Println("Listen at localhost:7798")
 	var opts []grpc.ServerOption
 	grpcServer := grpc.NewServer(opts...)
 	trailer.RegisterTrailerServer(grpcServer, testRpcServer{})
 	grpcServer.Serve(lis)
+	log.Println("Stop")
+
 }
