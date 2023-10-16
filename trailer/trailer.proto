@@ -15,6 +15,8 @@ service trailer {
   rpc Status (Request) returns (Response) {}
   // 服务调用
   rpc Service (ServiceRequest) returns (ServiceResponse) {}
+  // 数据查询
+  rpc Query (DataRowsRequest) returns (DataRowsResponse) {}
   // 数据模型
   rpc Schema (SchemaRequest) returns (SchemaResponse) {}
   // 停止
@@ -56,8 +58,23 @@ message Column{
     bytes type = 2;
     bytes description = 3;
 }
+
+// 表结构返回
 message SchemaResponse{
     int32 code = 1;
     bytes message = 2;
     repeated Column columns = 3;
+}
+// 查出来的数据列
+message ColumnValue{
+    bytes name = 1;
+    bytes value = 2;
+}
+// 请求查询
+message DataRowsRequest{
+    bytes query = 1; // SQL or other query
+}
+// 查询结果
+message DataRowsResponse{
+    repeated ColumnValue column = 1;
 }

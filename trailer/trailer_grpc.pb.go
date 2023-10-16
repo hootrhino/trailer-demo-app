@@ -23,6 +23,7 @@ const (
 	Trailer_Start_FullMethodName   = "/trailer.trailer/Start"
 	Trailer_Status_FullMethodName  = "/trailer.trailer/Status"
 	Trailer_Service_FullMethodName = "/trailer.trailer/Service"
+	Trailer_Query_FullMethodName   = "/trailer.trailer/Query"
 	Trailer_Schema_FullMethodName  = "/trailer.trailer/Schema"
 	Trailer_Stop_FullMethodName    = "/trailer.trailer/Stop"
 )
@@ -39,6 +40,8 @@ type TrailerClient interface {
 	Status(ctx context.Context, in *Request, opts ...grpc.CallOption) (*Response, error)
 	// 服务调用
 	Service(ctx context.Context, in *ServiceRequest, opts ...grpc.CallOption) (*ServiceResponse, error)
+	// 数据查询
+	Query(ctx context.Context, in *DataRowsRequest, opts ...grpc.CallOption) (*DataRowsResponse, error)
 	// 数据模型
 	Schema(ctx context.Context, in *SchemaRequest, opts ...grpc.CallOption) (*SchemaResponse, error)
 	// 停止
@@ -89,6 +92,15 @@ func (c *trailerClient) Service(ctx context.Context, in *ServiceRequest, opts ..
 	return out, nil
 }
 
+func (c *trailerClient) Query(ctx context.Context, in *DataRowsRequest, opts ...grpc.CallOption) (*DataRowsResponse, error) {
+	out := new(DataRowsResponse)
+	err := c.cc.Invoke(ctx, Trailer_Query_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 func (c *trailerClient) Schema(ctx context.Context, in *SchemaRequest, opts ...grpc.CallOption) (*SchemaResponse, error) {
 	out := new(SchemaResponse)
 	err := c.cc.Invoke(ctx, Trailer_Schema_FullMethodName, in, out, opts...)
@@ -119,6 +131,8 @@ type TrailerServer interface {
 	Status(context.Context, *Request) (*Response, error)
 	// 服务调用
 	Service(context.Context, *ServiceRequest) (*ServiceResponse, error)
+	// 数据查询
+	Query(context.Context, *DataRowsRequest) (*DataRowsResponse, error)
 	// 数据模型
 	Schema(context.Context, *SchemaRequest) (*SchemaResponse, error)
 	// 停止
@@ -141,6 +155,9 @@ func (UnimplementedTrailerServer) Status(context.Context, *Request) (*Response, 
 }
 func (UnimplementedTrailerServer) Service(context.Context, *ServiceRequest) (*ServiceResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method Service not implemented")
+}
+func (UnimplementedTrailerServer) Query(context.Context, *DataRowsRequest) (*DataRowsResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method Query not implemented")
 }
 func (UnimplementedTrailerServer) Schema(context.Context, *SchemaRequest) (*SchemaResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method Schema not implemented")
@@ -233,6 +250,24 @@ func _Trailer_Service_Handler(srv interface{}, ctx context.Context, dec func(int
 	return interceptor(ctx, in, info, handler)
 }
 
+func _Trailer_Query_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(DataRowsRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(TrailerServer).Query(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Trailer_Query_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(TrailerServer).Query(ctx, req.(*DataRowsRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 func _Trailer_Schema_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(SchemaRequest)
 	if err := dec(in); err != nil {
@@ -291,6 +326,10 @@ var Trailer_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "Service",
 			Handler:    _Trailer_Service_Handler,
+		},
+		{
+			MethodName: "Query",
+			Handler:    _Trailer_Query_Handler,
 		},
 		{
 			MethodName: "Schema",

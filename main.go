@@ -42,6 +42,16 @@ func (testRpcServer) Schema(context.Context, *trailer.SchemaRequest) (*trailer.S
 	}
 	return &trailer.SchemaResponse{Columns: Columns}, nil
 }
+func (testRpcServer) Query(context.Context, *trailer.DataRowsRequest) (*trailer.DataRowsResponse, error) {
+	return &trailer.DataRowsResponse{
+		Column: []*trailer.ColumnValue{
+			{Name: []byte("temp"), Value: []byte("15.34")},
+			{Name: []byte("humi"), Value: []byte("65")},
+			{Name: []byte("co2"), Value: []byte("13.5")},
+			{Name: []byte("weather"), Value: []byte("SUNNY")},
+		},
+	}, nil
+}
 func (testRpcServer) Stop(context.Context, *trailer.Request) (*trailer.Response, error) {
 	log.Println("Stop")
 	return &trailer.Response{}, nil
