@@ -2,6 +2,7 @@ package main
 
 import (
 	"context"
+	"flag"
 	"fmt"
 	"log"
 	"net"
@@ -14,8 +15,8 @@ type testRpcServer struct {
 	trailer.UnimplementedTrailerServer
 }
 
-func (testRpcServer) Init(context.Context, *trailer.Config) (*trailer.Response, error) {
-	log.Println("Init")
+func (testRpcServer) Init(ctx context.Context, cfg *trailer.Config) (*trailer.Response, error) {
+	log.Println("Init:", cfg.Kv)
 	return &trailer.Response{}, nil
 }
 func (testRpcServer) Start(context.Context, *trailer.Request) (*trailer.Response, error) {
@@ -32,7 +33,7 @@ func (testRpcServer) Service(ctx context.Context, request *trailer.ServiceReques
 	}
 	return &trailer.ServiceResponse{}, nil
 }
-func (testRpcServer) Schema(context.Context, *trailer.SchemaRequest) (*trailer.SchemaResponse, error) {
+func (testRpcServer) Schema(ctx context.Context, req *trailer.SchemaRequest) (*trailer.SchemaResponse, error) {
 	log.Println("Schema")
 	Columns := []*trailer.Column{
 		{Name: []byte("temp"), Type: []byte("NUMBER")},
@@ -42,7 +43,8 @@ func (testRpcServer) Schema(context.Context, *trailer.SchemaRequest) (*trailer.S
 	}
 	return &trailer.SchemaResponse{Columns: Columns}, nil
 }
-func (testRpcServer) Query(context.Context, *trailer.DataRowsRequest) (*trailer.DataRowsResponse, error) {
+func (testRpcServer) Query(ctx context.Context, req *trailer.DataRowsRequest) (*trailer.DataRowsResponse, error) {
+	log.Println("Query", req.Query)
 	return &trailer.DataRowsResponse{
 		Column: []*trailer.ColumnValue{
 			{Name: []byte("temp"), Value: []byte("15.34")},
@@ -57,11 +59,13 @@ func (testRpcServer) Stop(context.Context, *trailer.Request) (*trailer.Response,
 	return &trailer.Response{}, nil
 }
 func main() {
-	lis, err := net.Listen("tcp", fmt.Sprintf("localhost:%d", 7798))
+	port := flag.Int("port", 7700, "port")
+	flag.Parse()
+	lis, err := net.Listen("tcp", fmt.Sprintf("localhost:%d", *port))
 	if err != nil {
 		log.Fatalf("failed to listen: %v", err)
 	}
-	log.Println("Listen at localhost:7798")
+	log.Println("Listen at localhost:", *port)
 	var opts []grpc.ServerOption
 	grpcServer := grpc.NewServer(opts...)
 	trailer.RegisterTrailerServer(grpcServer, testRpcServer{})
