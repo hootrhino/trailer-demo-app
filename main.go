@@ -46,14 +46,35 @@ func (testRpcServer) Schema(ctx context.Context, req *trailer.SchemaRequest) (*t
 }
 func (testRpcServer) Query(ctx context.Context, req *trailer.DataRowsRequest) (*trailer.DataRowsResponse, error) {
 	log.Println("来自协议包的日志 Query", req.Query)
+	// [
+	//     {
+	//         "co2": 13.5,
+	//         "humi": 65,
+	//         "isOk": false,
+	//         "temp": 15.34,
+	//         "weather": "SUNNY"
+	//     }
+	// ]
+	Values1 := []*trailer.ColumnValue{
+		{Name: []byte("temp"), Type: trailer.ValueType_NUMBER, Value: []byte("15.34")},
+		{Name: []byte("humi"), Type: trailer.ValueType_NUMBER, Value: []byte("65")},
+		{Name: []byte("co2"), Type: trailer.ValueType_NUMBER, Value: []byte("13.5")},
+		{Name: []byte("weather"), Type: trailer.ValueType_STRING, Value: []byte("SUNNY")},
+		{Name: []byte("isOk"), Type: trailer.ValueType_BOOL, Value: []byte("false")},
+	}
+	Values2 := []*trailer.ColumnValue{
+		{Name: []byte("temp"), Type: trailer.ValueType_NUMBER, Value: []byte("15.34")},
+		{Name: []byte("humi"), Type: trailer.ValueType_NUMBER, Value: []byte("65")},
+		{Name: []byte("co2"), Type: trailer.ValueType_NUMBER, Value: []byte("13.5")},
+		{Name: []byte("weather"), Type: trailer.ValueType_STRING, Value: []byte("SUNNY")},
+		{Name: []byte("isOk"), Type: trailer.ValueType_BOOL, Value: []byte("false")},
+	}
+	Rows := []*trailer.DataRow{
+		{Column: Values1},
+		{Column: Values2},
+	}
 	return &trailer.DataRowsResponse{
-		Column: []*trailer.ColumnValue{
-			{Name: []byte("temp"), Type: trailer.ValueType_NUMBER, Value: []byte("15.34")},
-			{Name: []byte("humi"), Type: trailer.ValueType_NUMBER, Value: []byte("65")},
-			{Name: []byte("co2"), Type: trailer.ValueType_NUMBER, Value: []byte("13.5")},
-			{Name: []byte("weather"), Type: trailer.ValueType_STRING, Value: []byte("SUNNY")},
-			{Name: []byte("isOk"), Type: trailer.ValueType_BOOL, Value: []byte("false")},
-		},
+		Row: Rows,
 	}, nil
 }
 func (testRpcServer) Stop(context.Context, *trailer.Request) (*trailer.Response, error) {
