@@ -23,9 +23,9 @@ func (testRpcServer) Start(context.Context, *trailer.Request) (*trailer.Response
 	log.Println("来自协议包的日志 Start")
 	return &trailer.Response{}, nil
 }
-func (testRpcServer) Status(context.Context, *trailer.Request) (*trailer.Response, error) {
+func (testRpcServer) Status(context.Context, *trailer.Request) (*trailer.StatusResponse, error) {
 	log.Println("来自协议包的日志 Status")
-	return &trailer.Response{Code: 200}, nil
+	return &trailer.StatusResponse{Status: trailer.StatusResponse_RUNNING, Message: "Success"}, nil
 }
 func (testRpcServer) Service(ctx context.Context, request *trailer.ServiceRequest) (*trailer.ServiceResponse, error) {
 	if string(request.Args) == "query" {
