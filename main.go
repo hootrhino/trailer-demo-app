@@ -16,7 +16,7 @@ type testRpcServer struct {
 }
 
 func (testRpcServer) Init(ctx context.Context, cfg *trailer.Config) (*trailer.Response, error) {
-	log.Println("来自协议包的日志 Init:", cfg.Kv)
+	log.Println("来自协议包的日志 Init, Config=", cfg.String())
 	return &trailer.Response{}, nil
 }
 func (testRpcServer) Start(context.Context, *trailer.Request) (*trailer.Response, error) {
@@ -45,7 +45,7 @@ func (testRpcServer) Schema(ctx context.Context, req *trailer.SchemaRequest) (*t
 	return &trailer.SchemaResponse{Columns: Columns}, nil
 }
 func (testRpcServer) Query(ctx context.Context, req *trailer.DataRowsRequest) (*trailer.DataRowsResponse, error) {
-	log.Println("来自协议包的日志 Query", req.Query)
+	log.Println("来自协议包的日志 Query", req.String())
 	// [
 	//     {
 	//         "co2": 13.5,
