@@ -6,6 +6,7 @@ import (
 	"fmt"
 	"log"
 	"net"
+	"os"
 	"trailer-demo-app/trailer"
 
 	"google.golang.org/grpc"
@@ -16,7 +17,7 @@ type testRpcServer struct {
 }
 
 func (testRpcServer) Init(ctx context.Context, cfg *trailer.Config) (*trailer.Response, error) {
-	log.Println("来自协议包的日志 Init, Config=", cfg.String())
+	log.Println("来自协议包的日志 Init, Config=", string(cfg.GetKv()))
 	return &trailer.Response{}, nil
 }
 func (testRpcServer) Start(context.Context, *trailer.Request) (*trailer.Response, error) {
@@ -45,7 +46,7 @@ func (testRpcServer) Schema(ctx context.Context, req *trailer.SchemaRequest) (*t
 	return &trailer.SchemaResponse{Columns: Columns}, nil
 }
 func (testRpcServer) Query(ctx context.Context, req *trailer.DataRowsRequest) (*trailer.DataRowsResponse, error) {
-	log.Println("来自协议包的日志 Query", req.String())
+	log.Println("来自协议包的日志 Query", string(req.GetQuery()))
 	// [
 	//     {
 	//         "co2": 13.5,
@@ -84,6 +85,7 @@ func (testRpcServer) Stop(context.Context, *trailer.Request) (*trailer.Response,
 func main() {
 	port := flag.Int("port", 7700, "port")
 	flag.Parse()
+	fmt.Printf("来自协议包的日志, main 参数 %v\n", os.Args)
 	lis, err := net.Listen("tcp", fmt.Sprintf("localhost:%d", *port))
 	if err != nil {
 		log.Fatalf("来自协议包的日志 failed to listen: %v", err)
