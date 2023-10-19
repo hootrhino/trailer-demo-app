@@ -37,11 +37,11 @@ func (testRpcServer) Service(ctx context.Context, request *trailer.ServiceReques
 func (testRpcServer) Schema(ctx context.Context, req *trailer.SchemaRequest) (*trailer.SchemaResponse, error) {
 	log.Println("来自协议包的日志 Schema")
 	Columns := []*trailer.Column{
-		{Name: []byte("temp"), Type: trailer.ValueType_NUMBER, Description: []byte("温度")},
-		{Name: []byte("humi"), Type: trailer.ValueType_NUMBER, Description: []byte("湿度")},
-		{Name: []byte("co2"), Type: trailer.ValueType_NUMBER, Description: []byte("二氧化碳")},
-		{Name: []byte("weather"), Type: trailer.ValueType_STRING, Description: []byte("天气")},
-		{Name: []byte("isOk"), Type: trailer.ValueType_BOOL, Description: []byte("你还好吗")},
+		{Name: ("temp"), Type: trailer.ValueType_NUMBER, Description: ("温度")},
+		{Name: ("humi"), Type: trailer.ValueType_NUMBER, Description: ("湿度")},
+		{Name: ("co2"), Type: trailer.ValueType_NUMBER, Description: ("二氧化碳")},
+		{Name: ("weather"), Type: trailer.ValueType_STRING, Description: ("天气")},
+		{Name: ("isOk"), Type: trailer.ValueType_BOOL, Description: ("你还好吗")},
 	}
 	return &trailer.SchemaResponse{Columns: Columns}, nil
 }
@@ -57,18 +57,18 @@ func (testRpcServer) Query(ctx context.Context, req *trailer.DataRowsRequest) (*
 	//     }
 	// ]
 	Values1 := []*trailer.ColumnValue{
-		{Name: []byte("temp"), Type: trailer.ValueType_NUMBER, Value: []byte("15.34")},
-		{Name: []byte("humi"), Type: trailer.ValueType_NUMBER, Value: []byte("65")},
-		{Name: []byte("co2"), Type: trailer.ValueType_NUMBER, Value: []byte("13.5")},
-		{Name: []byte("weather"), Type: trailer.ValueType_STRING, Value: []byte("SUNNY")},
-		{Name: []byte("isOk"), Type: trailer.ValueType_BOOL, Value: []byte("false")},
+		{Name: ("temp"), Type: trailer.ValueType_NUMBER, Value: []byte("15.34")},
+		{Name: ("humi"), Type: trailer.ValueType_NUMBER, Value: []byte("65")},
+		{Name: ("co2"), Type: trailer.ValueType_NUMBER, Value: []byte("13.5")},
+		{Name: ("weather"), Type: trailer.ValueType_STRING, Value: []byte("SUNNY")},
+		{Name: ("isOk"), Type: trailer.ValueType_BOOL, Value: []byte("false")},
 	}
 	Values2 := []*trailer.ColumnValue{
-		{Name: []byte("temp"), Type: trailer.ValueType_NUMBER, Value: []byte("15.34")},
-		{Name: []byte("humi"), Type: trailer.ValueType_NUMBER, Value: []byte("65")},
-		{Name: []byte("co2"), Type: trailer.ValueType_NUMBER, Value: []byte("13.5")},
-		{Name: []byte("weather"), Type: trailer.ValueType_STRING, Value: []byte("SUNNY")},
-		{Name: []byte("isOk"), Type: trailer.ValueType_BOOL, Value: []byte("false")},
+		{Name: ("temp"), Type: trailer.ValueType_NUMBER, Value: []byte("15.34")},
+		{Name: ("humi"), Type: trailer.ValueType_NUMBER, Value: []byte("65")},
+		{Name: ("co2"), Type: trailer.ValueType_NUMBER, Value: []byte("13.5")},
+		{Name: ("weather"), Type: trailer.ValueType_STRING, Value: []byte("SUNNY")},
+		{Name: ("isOk"), Type: trailer.ValueType_BOOL, Value: []byte("false")},
 	}
 	Rows := []*trailer.DataRow{
 		{Column: Values1},
@@ -85,7 +85,7 @@ func (testRpcServer) Stop(context.Context, *trailer.Request) (*trailer.Response,
 func main() {
 	port := flag.Int("port", 7700, "port")
 	flag.Parse()
-	fmt.Printf("来自协议包的日志, main 参数 %v\n", os.Args)
+	log.Println("来自协议包的日志, main 参数:", os.Args)
 	lis, err := net.Listen("tcp", fmt.Sprintf("localhost:%d", *port))
 	if err != nil {
 		log.Fatalf("来自协议包的日志 failed to listen: %v", err)
