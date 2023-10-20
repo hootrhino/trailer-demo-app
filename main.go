@@ -41,7 +41,25 @@ func (testRpcServer) Schema(ctx context.Context, req *trailer.SchemaRequest) (*t
 		{Name: ("humi"), Type: trailer.ValueType_NUMBER, Description: ("湿度")},
 		{Name: ("co2"), Type: trailer.ValueType_NUMBER, Description: ("二氧化碳")},
 		{Name: ("weather"), Type: trailer.ValueType_STRING, Description: ("天气")},
-		{Name: ("isOk"), Type: trailer.ValueType_BOOL, Description: ("你还好吗")},
+		{Name: ("点位1"), Type: trailer.ValueType_NUMBER, Description: ("点位1参数")},
+		{Name: ("点位2"), Type: trailer.ValueType_NUMBER, Description: ("点位2参数")},
+		{Name: ("点位3"), Type: trailer.ValueType_NUMBER, Description: ("点位3参数")},
+		{Name: ("点位4"), Type: trailer.ValueType_NUMBER, Description: ("点位4参数")},
+		{Name: ("点位5"), Type: trailer.ValueType_NUMBER, Description: ("点位5参数")},
+		{Name: ("点位6"), Type: trailer.ValueType_NUMBER, Description: ("点位6参数")},
+		{Name: ("点位7"), Type: trailer.ValueType_NUMBER, Description: ("点位7参数")},
+		{Name: ("点位8"), Type: trailer.ValueType_NUMBER, Description: ("点位8参数")},
+		{Name: ("点位9"), Type: trailer.ValueType_NUMBER, Description: ("点位9参数")},
+		{Name: ("点位10"), Type: trailer.ValueType_NUMBER, Description: ("点位10参数")},
+		{Name: ("点位11"), Type: trailer.ValueType_NUMBER, Description: ("点位11参数")},
+		{Name: ("点位12"), Type: trailer.ValueType_NUMBER, Description: ("点位12参数")},
+		{Name: ("点位13"), Type: trailer.ValueType_NUMBER, Description: ("点位13参数")},
+		{Name: ("点位14"), Type: trailer.ValueType_NUMBER, Description: ("点位14参数")},
+		{Name: ("点位15"), Type: trailer.ValueType_NUMBER, Description: ("点位15参数")},
+		{Name: ("点位16"), Type: trailer.ValueType_NUMBER, Description: ("点位16参数")},
+		{Name: ("点位17"), Type: trailer.ValueType_NUMBER, Description: ("点位17参数")},
+		{Name: ("点位18"), Type: trailer.ValueType_NUMBER, Description: ("点位18参数")},
+		{Name: ("点位19"), Type: trailer.ValueType_NUMBER, Description: ("点位19参数")},
 	}
 	return &trailer.SchemaResponse{Columns: Columns}, nil
 }
@@ -62,18 +80,34 @@ func (testRpcServer) Query(ctx context.Context, req *trailer.DataRowsRequest) (*
 		{Name: ("co2"), Type: trailer.ValueType_NUMBER, Value: []byte("13.5")},
 		{Name: ("weather"), Type: trailer.ValueType_STRING, Value: []byte("SUNNY")},
 		{Name: ("isOk"), Type: trailer.ValueType_BOOL, Value: []byte("false")},
+		{Name: ("点位1"), Type: trailer.ValueType_NUMBER, Value: []byte("23.15")},
+		{Name: ("点位2"), Type: trailer.ValueType_NUMBER, Value: []byte("23.25")},
+		{Name: ("点位3"), Type: trailer.ValueType_NUMBER, Value: []byte("23.35")},
+		{Name: ("点位4"), Type: trailer.ValueType_NUMBER, Value: []byte("23.45")},
+		{Name: ("点位5"), Type: trailer.ValueType_NUMBER, Value: []byte("23.55")},
+		{Name: ("点位6"), Type: trailer.ValueType_NUMBER, Value: []byte("23.65")},
+		{Name: ("点位7"), Type: trailer.ValueType_NUMBER, Value: []byte("23.75")},
+		{Name: ("点位8"), Type: trailer.ValueType_NUMBER, Value: []byte("23.85")},
+		{Name: ("点位9"), Type: trailer.ValueType_NUMBER, Value: []byte("23.95")},
+		{Name: ("点位10"), Type: trailer.ValueType_NUMBER, Value: []byte("65530")},
+		{Name: ("点位11"), Type: trailer.ValueType_NUMBER, Value: []byte("65531")},
+		{Name: ("点位12"), Type: trailer.ValueType_NUMBER, Value: []byte("65532")},
+		{Name: ("点位13"), Type: trailer.ValueType_NUMBER, Value: []byte("65533")},
+		{Name: ("点位14"), Type: trailer.ValueType_NUMBER, Value: []byte("65534")},
+		{Name: ("点位15"), Type: trailer.ValueType_NUMBER, Value: []byte("65535")},
+		{Name: ("点位16"), Type: trailer.ValueType_NUMBER, Value: []byte("65536")},
+		{Name: ("点位17"), Type: trailer.ValueType_NUMBER, Value: []byte("65537")},
+		{Name: ("点位18"), Type: trailer.ValueType_NUMBER, Value: []byte("65538")},
+		{Name: ("点位19"), Type: trailer.ValueType_NUMBER, Value: []byte("65539")},
 	}
-	Values2 := []*trailer.ColumnValue{
-		{Name: ("temp"), Type: trailer.ValueType_NUMBER, Value: []byte("15.34")},
-		{Name: ("humi"), Type: trailer.ValueType_NUMBER, Value: []byte("65")},
-		{Name: ("co2"), Type: trailer.ValueType_NUMBER, Value: []byte("13.5")},
-		{Name: ("weather"), Type: trailer.ValueType_STRING, Value: []byte("SUNNY")},
-		{Name: ("isOk"), Type: trailer.ValueType_BOOL, Value: []byte("false")},
+
+	Rows := []*trailer.DataRow{}
+	for i := 0; i < 123; i++ {
+		Rows = append(Rows, &trailer.DataRow{
+			Column: Values1,
+		})
 	}
-	Rows := []*trailer.DataRow{
-		{Column: Values1},
-		{Column: Values2},
-	}
+
 	return &trailer.DataRowsResponse{
 		Row: Rows,
 	}, nil
