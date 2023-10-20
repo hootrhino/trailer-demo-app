@@ -9,6 +9,7 @@ import (
 	"os"
 	"trailer-demo-app/trailer"
 
+	"github.com/google/uuid"
 	"google.golang.org/grpc"
 )
 
@@ -75,30 +76,30 @@ func (testRpcServer) Query(ctx context.Context, req *trailer.DataRowsRequest) (*
 	//     }
 	// ]
 	Values1 := []*trailer.ColumnValue{
-		{Name: ("temp"), Type: trailer.ValueType_NUMBER, Value: []byte("15.34")},
-		{Name: ("humi"), Type: trailer.ValueType_NUMBER, Value: []byte("65")},
-		{Name: ("co2"), Type: trailer.ValueType_NUMBER, Value: []byte("13.5")},
-		{Name: ("weather"), Type: trailer.ValueType_STRING, Value: []byte("SUNNY")},
-		{Name: ("isOk"), Type: trailer.ValueType_BOOL, Value: []byte("false")},
-		{Name: ("点位1"), Type: trailer.ValueType_NUMBER, Value: []byte("23.15")},
-		{Name: ("点位2"), Type: trailer.ValueType_NUMBER, Value: []byte("23.25")},
-		{Name: ("点位3"), Type: trailer.ValueType_NUMBER, Value: []byte("23.35")},
-		{Name: ("点位4"), Type: trailer.ValueType_NUMBER, Value: []byte("23.45")},
-		{Name: ("点位5"), Type: trailer.ValueType_NUMBER, Value: []byte("23.55")},
-		{Name: ("点位6"), Type: trailer.ValueType_NUMBER, Value: []byte("23.65")},
-		{Name: ("点位7"), Type: trailer.ValueType_NUMBER, Value: []byte("23.75")},
-		{Name: ("点位8"), Type: trailer.ValueType_NUMBER, Value: []byte("23.85")},
-		{Name: ("点位9"), Type: trailer.ValueType_NUMBER, Value: []byte("23.95")},
-		{Name: ("点位10"), Type: trailer.ValueType_NUMBER, Value: []byte("65530")},
-		{Name: ("点位11"), Type: trailer.ValueType_NUMBER, Value: []byte("65531")},
-		{Name: ("点位12"), Type: trailer.ValueType_NUMBER, Value: []byte("65532")},
-		{Name: ("点位13"), Type: trailer.ValueType_NUMBER, Value: []byte("65533")},
-		{Name: ("点位14"), Type: trailer.ValueType_NUMBER, Value: []byte("65534")},
-		{Name: ("点位15"), Type: trailer.ValueType_NUMBER, Value: []byte("65535")},
-		{Name: ("点位16"), Type: trailer.ValueType_NUMBER, Value: []byte("65536")},
-		{Name: ("点位17"), Type: trailer.ValueType_NUMBER, Value: []byte("65537")},
-		{Name: ("点位18"), Type: trailer.ValueType_NUMBER, Value: []byte("65538")},
-		{Name: ("点位19"), Type: trailer.ValueType_NUMBER, Value: []byte("65539")},
+		{Id: uuid.NewString(), Name: ("temp"), Type: trailer.ValueType_NUMBER, Value: []byte("15.34")},
+		{Id: uuid.NewString(), Name: ("humi"), Type: trailer.ValueType_NUMBER, Value: []byte("65")},
+		{Id: uuid.NewString(), Name: ("co2"), Type: trailer.ValueType_NUMBER, Value: []byte("13.5")},
+		{Id: uuid.NewString(), Name: ("weather"), Type: trailer.ValueType_STRING, Value: []byte("SUNNY")},
+		{Id: uuid.NewString(), Name: ("isOk"), Type: trailer.ValueType_BOOL, Value: []byte("false")},
+		{Id: uuid.NewString(), Name: ("点位1"), Type: trailer.ValueType_NUMBER, Value: []byte("23.15")},
+		{Id: uuid.NewString(), Name: ("点位2"), Type: trailer.ValueType_NUMBER, Value: []byte("23.25")},
+		{Id: uuid.NewString(), Name: ("点位3"), Type: trailer.ValueType_NUMBER, Value: []byte("23.35")},
+		{Id: uuid.NewString(), Name: ("点位4"), Type: trailer.ValueType_NUMBER, Value: []byte("23.45")},
+		{Id: uuid.NewString(), Name: ("点位5"), Type: trailer.ValueType_NUMBER, Value: []byte("23.55")},
+		{Id: uuid.NewString(), Name: ("点位6"), Type: trailer.ValueType_NUMBER, Value: []byte("23.65")},
+		{Id: uuid.NewString(), Name: ("点位7"), Type: trailer.ValueType_NUMBER, Value: []byte("23.75")},
+		{Id: uuid.NewString(), Name: ("点位8"), Type: trailer.ValueType_NUMBER, Value: []byte("23.85")},
+		{Id: uuid.NewString(), Name: ("点位9"), Type: trailer.ValueType_NUMBER, Value: []byte("23.95")},
+		{Id: uuid.NewString(), Name: ("点位10"), Type: trailer.ValueType_NUMBER, Value: []byte("65530")},
+		{Id: uuid.NewString(), Name: ("点位11"), Type: trailer.ValueType_NUMBER, Value: []byte("65531")},
+		{Id: uuid.NewString(), Name: ("点位12"), Type: trailer.ValueType_NUMBER, Value: []byte("65532")},
+		{Id: uuid.NewString(), Name: ("点位13"), Type: trailer.ValueType_NUMBER, Value: []byte("65533")},
+		{Id: uuid.NewString(), Name: ("点位14"), Type: trailer.ValueType_NUMBER, Value: []byte("65534")},
+		{Id: uuid.NewString(), Name: ("点位15"), Type: trailer.ValueType_NUMBER, Value: []byte("65535")},
+		{Id: uuid.NewString(), Name: ("点位16"), Type: trailer.ValueType_NUMBER, Value: []byte("65536")},
+		{Id: uuid.NewString(), Name: ("点位17"), Type: trailer.ValueType_NUMBER, Value: []byte("65537")},
+		{Id: uuid.NewString(), Name: ("点位18"), Type: trailer.ValueType_NUMBER, Value: []byte("65538")},
+		{Id: uuid.NewString(), Name: ("点位19"), Type: trailer.ValueType_NUMBER, Value: []byte("65539")},
 	}
 
 	Rows := []*trailer.DataRow{}
