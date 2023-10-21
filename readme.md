@@ -17,6 +17,11 @@
 
 # RPC解码器示例
 这是一个RULEX的 RPC 解码器 golang 服务模板，用来开发私有设备接入。
+## 生成
+```sh
+python -m grpc_tools.protoc -I./ --python_out=. --grpc_python_out=. ./trailer.proto
+```
+
 ## 构建
 ```sh
 go build

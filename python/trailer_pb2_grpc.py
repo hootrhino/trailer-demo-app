@@ -5,7 +5,7 @@ import grpc
 import trailer_pb2 as trailer__pb2
 
 
-class trailerStub(object):
+class TrailerStub(object):
     """Missing associated documentation comment in .proto file."""
 
     def __init__(self, channel):
@@ -15,43 +15,43 @@ class trailerStub(object):
             channel: A grpc.Channel.
         """
         self.Init = channel.unary_unary(
-                '/trailer.trailer/Init',
+                '/trailer.Trailer/Init',
                 request_serializer=trailer__pb2.Config.SerializeToString,
                 response_deserializer=trailer__pb2.Response.FromString,
                 )
         self.Start = channel.unary_unary(
-                '/trailer.trailer/Start',
+                '/trailer.Trailer/Start',
                 request_serializer=trailer__pb2.Request.SerializeToString,
                 response_deserializer=trailer__pb2.Response.FromString,
                 )
         self.Status = channel.unary_unary(
-                '/trailer.trailer/Status',
+                '/trailer.Trailer/Status',
                 request_serializer=trailer__pb2.Request.SerializeToString,
                 response_deserializer=trailer__pb2.StatusResponse.FromString,
                 )
         self.Service = channel.unary_unary(
-                '/trailer.trailer/Service',
+                '/trailer.Trailer/Service',
                 request_serializer=trailer__pb2.ServiceRequest.SerializeToString,
                 response_deserializer=trailer__pb2.ServiceResponse.FromString,
                 )
         self.Query = channel.unary_unary(
-                '/trailer.trailer/Query',
+                '/trailer.Trailer/Query',
                 request_serializer=trailer__pb2.DataRowsRequest.SerializeToString,
                 response_deserializer=trailer__pb2.DataRowsResponse.FromString,
                 )
         self.Schema = channel.unary_unary(
-                '/trailer.trailer/Schema',
+                '/trailer.Trailer/Schema',
                 request_serializer=trailer__pb2.SchemaRequest.SerializeToString,
                 response_deserializer=trailer__pb2.SchemaResponse.FromString,
                 )
         self.Stop = channel.unary_unary(
-                '/trailer.trailer/Stop',
+                '/trailer.Trailer/Stop',
                 request_serializer=trailer__pb2.Request.SerializeToString,
                 response_deserializer=trailer__pb2.Response.FromString,
                 )
 
 
-class trailerServicer(object):
+class TrailerServicer(object):
     """Missing associated documentation comment in .proto file."""
 
     def Init(self, request, context):
@@ -104,7 +104,7 @@ class trailerServicer(object):
         raise NotImplementedError('Method not implemented!')
 
 
-def add_trailerServicer_to_server(servicer, server):
+def add_TrailerServicer_to_server(servicer, server):
     rpc_method_handlers = {
             'Init': grpc.unary_unary_rpc_method_handler(
                     servicer.Init,
@@ -143,12 +143,12 @@ def add_trailerServicer_to_server(servicer, server):
             ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
-            'trailer.trailer', rpc_method_handlers)
+            'trailer.Trailer', rpc_method_handlers)
     server.add_generic_rpc_handlers((generic_handler,))
 
 
  # This class is part of an EXPERIMENTAL API.
-class trailer(object):
+class Trailer(object):
     """Missing associated documentation comment in .proto file."""
 
     @staticmethod
@@ -162,7 +162,7 @@ class trailer(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/trailer.trailer/Init',
+        return grpc.experimental.unary_unary(request, target, '/trailer.Trailer/Init',
             trailer__pb2.Config.SerializeToString,
             trailer__pb2.Response.FromString,
             options, channel_credentials,
@@ -179,7 +179,7 @@ class trailer(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/trailer.trailer/Start',
+        return grpc.experimental.unary_unary(request, target, '/trailer.Trailer/Start',
             trailer__pb2.Request.SerializeToString,
             trailer__pb2.Response.FromString,
             options, channel_credentials,
@@ -196,7 +196,7 @@ class trailer(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/trailer.trailer/Status',
+        return grpc.experimental.unary_unary(request, target, '/trailer.Trailer/Status',
             trailer__pb2.Request.SerializeToString,
             trailer__pb2.StatusResponse.FromString,
             options, channel_credentials,
@@ -213,7 +213,7 @@ class trailer(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/trailer.trailer/Service',
+        return grpc.experimental.unary_unary(request, target, '/trailer.Trailer/Service',
             trailer__pb2.ServiceRequest.SerializeToString,
             trailer__pb2.ServiceResponse.FromString,
             options, channel_credentials,
@@ -230,7 +230,7 @@ class trailer(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/trailer.trailer/Query',
+        return grpc.experimental.unary_unary(request, target, '/trailer.Trailer/Query',
             trailer__pb2.DataRowsRequest.SerializeToString,
             trailer__pb2.DataRowsResponse.FromString,
             options, channel_credentials,
@@ -247,7 +247,7 @@ class trailer(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/trailer.trailer/Schema',
+        return grpc.experimental.unary_unary(request, target, '/trailer.Trailer/Schema',
             trailer__pb2.SchemaRequest.SerializeToString,
             trailer__pb2.SchemaResponse.FromString,
             options, channel_credentials,
@@ -264,7 +264,7 @@ class trailer(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/trailer.trailer/Stop',
+        return grpc.experimental.unary_unary(request, target, '/trailer.Trailer/Stop',
             trailer__pb2.Request.SerializeToString,
             trailer__pb2.Response.FromString,
             options, channel_credentials,
